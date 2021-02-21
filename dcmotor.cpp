@@ -24,13 +24,21 @@ Driver::Driver(float *x, float *y, unsigned int size) {
 
 
 float Driver::drive(float primary, float secondary) {
- 
-  if (secondary <= threshold == useSecondCurveBelowThreshold ) {
-	return interpolate_table_1d(&curve1, primary);
-  } else {
-	return interpolate_table_1d(&curve0, primary);
+
+  if (primary == 0.0) {
+	primary = epsilon;
   }
+  float val = 0;
   
+  if (secondary <= threshold == useSecondCurveBelowThreshold ) {
+	val = interpolate_table_1d(&curve1, primary);
+  } else {
+	val = interpolate_table_1d(&curve0, primary);
+  }
+  if (ABS(val) < epsilon) {
+	  val = 0.0;
+	}  
+	return val;
 }
 
 void Driver::updatePrimaryCurve(float *x, float *y, unsigned int size) {

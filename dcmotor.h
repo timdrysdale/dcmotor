@@ -12,6 +12,7 @@
 //   The first curve is applied.
 //
 
+#define ABS(a) ((a) < 0 ? -(a) : (a))
 
 class Driver {
   
@@ -23,6 +24,7 @@ class Driver {
   };
 
   table_1d curve0, curve1;
+  const float epsilon = 1e-12;
   
   float interpolate_table_1d(struct table_1d *table, float x);
   float interpolate_segment(float x0, float y0, float x1, float y1, float x);
