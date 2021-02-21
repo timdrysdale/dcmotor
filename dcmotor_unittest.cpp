@@ -25,6 +25,28 @@ TEST(DCMotorTest, primaryCurve) {
   
 }
 
+TEST(DCMotorTest, symmetric2PointCurve) {
+
+  static float x[] = {-5, 5};  //plant
+  static float y[] = {-0.5, 0.5}; //drive
+  static int size = 2;
+  
+  Driver driver = Driver(x, y, size);
+
+  float actual = driver.drive(-5.0,0.0);
+
+  float expected = -0.5;
+
+  EXPECT_FLOAT_EQ(expected, actual);
+
+  actual = driver.drive(0,0.0);
+
+  
+  expected = 0;
+  
+  EXPECT_FLOAT_EQ(expected, actual);
+  
+}
 TEST(DCMotorTest, secondCurve) {
 
   static float x[] = {-10.0, 0.0, 5};  //plant
