@@ -118,7 +118,32 @@ TEST(DCMotorTest, secondCurve) {
   
 }
 
+TEST(DCMotorTest, stateSpeed) {
 
+  float SpeedMaxRPS = 20; // we can probably get to ~2500 rpm if we risk the bearings
+  static float plantForSpeed[] = {-SpeedMaxRPS,SpeedMaxRPS}; //+/- 100% in the app
+  static float driveForSpeed[] = {-1,1}; // max 50% drive
+  static int sizeSpeed = 2;
+  
+  Driver driverSpeed = Driver(plantForSpeed, driveForSpeed, sizeSpeed);
+
+  float ds = 1e-3;
+  static float plantForSpeed2[] = {-SpeedMaxRPS,   -ds, 0, ds,   SpeedMaxRPS}; 
+  static float driveForSpeed2[] = {-0.38,        -0.38, 0, 0.38, 0.38}; 
+  static int sizeSpeed2 = 5;
+
+  driverSpeed.addSecondCurve(plantForSpeed2, driveForSpeed2, sizeSpeed2);
+  driverSpeed.threshold = 1.0; //1rps
+  driverSpeed.useSecondCurveBelowThreshold = true;
+
+  float  actual, expected;
+
+  actual = driverSpeed.drive(10, -10);
+  expected = 0.5;
+  EXPECT_FLOAT_EQ(expected, actual); 
+  
+
+}
 
 
 
