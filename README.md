@@ -51,8 +51,7 @@ an asymmetric (odd) DC offset for the linearisation curve.
 
 The driver is instantiated with an N segment interpolator which maps the controller output onto the 
 drive domain. This can be a simple one-segment interpolator for linear scaling, or have additional
-segments if compensating for a non-linear response to the drive signal. Include any dynamic friction
-compensation in the linearisation curve.
+segments if compensating for a non-linear response to the drive signal. 
 
 ### 3.2 Static Friction
 
@@ -63,8 +62,10 @@ with the actual range narrowed down by reducing the threshold - useful for tunin
 
 ### 3.3 Dynamic Compensation (not included)
 
-Dynamic friction models are potentially sensitive to increasing/decreasing velocity, and even direction of travel. Such
-models are out of scope.
+Dynamic friction models can be potentially complex. However, a small amount of testing with a particular plant of interest
+shows that a constant offset applied at all speeds, when moving, with the same sign as the drive, is sufficient to reduce or
+remove the steady state error for a range of speeds and loads. The positive and negative direction offsets are specified
+separately in case of differences between CW and CCW rotation.
 
 ## Testing
 

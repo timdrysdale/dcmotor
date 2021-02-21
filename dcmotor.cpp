@@ -34,6 +34,12 @@ float Driver::drive(float primary, float secondary) {
 	val = interpolate_table_1d(&curve1, primary);
   } else {
 	val = interpolate_table_1d(&curve0, primary);
+	if (primary > 0) {
+	  val += primaryOffsetPos;
+	}
+	if (primary < 0) {
+	  val += primaryOffsetNeg;
+	}
   }
   if (ABS(val) < epsilon) {
 	  val = 0.0;

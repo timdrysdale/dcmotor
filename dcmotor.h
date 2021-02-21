@@ -25,13 +25,15 @@ class Driver {
 
   table_1d curve0, curve1;
   const float epsilon = 1e-12;
-  
+  float primaryNeg, primaryPos;
   float interpolate_table_1d(struct table_1d *table, float x);
   float interpolate_segment(float x0, float y0, float x1, float y1, float x);
   
  public:
-  float threshold = 0; //set to zero for no friction compensation
-  bool useSecondCurveBelowThreshold = true; //set to false for second curve when secondary ABOVE threshold
+  float threshold = 0; //set to zero to avoid using second curve compensation 
+  bool useSecondCurveBelowThreshold = true; //set to false if you want the second curve when secondary ABOVE threshold
+  float primaryOffsetNeg = 0; //added to primary curve for  x < 0 
+  float primaryOffsetPos = 0; // added to primary curve for x > 0 
   Driver(float *x, float *y, unsigned int size);
   void updatePrimaryCurve(float *x, float *y, unsigned int size);
   void addSecondCurve(float *x, float *y, unsigned int size);

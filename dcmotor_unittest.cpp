@@ -142,10 +142,32 @@ TEST(DCMotorTest, stateSpeed) {
   expected = 0.5;
   EXPECT_FLOAT_EQ(expected, actual); 
   
-
 }
 
+TEST(DCMotorTest, primaryOffset) {
 
+  static float x[] = {-5, 5};  //plant
+  static float y[] = {-0.5, 0.5}; //drive
+  static int size = 2;
+  
+  Driver driver = Driver(x, y, size);
+  driver.primaryOffsetPos = 0.03;
+  driver.primaryOffsetNeg = -0.04;
+  driver.threshold = 1.0;
+  
+  float actual = driver.drive(-4.0,2.0);
+  float expected = -0.44;
+  EXPECT_FLOAT_EQ(expected, actual);
+
+  actual = driver.drive(3.0,2.0);
+  expected = 0.33;
+  EXPECT_FLOAT_EQ(expected, actual);
+  
+  actual = driver.drive(0,0.0);
+  expected = 0;
+  EXPECT_FLOAT_EQ(expected, actual);
+  
+}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
