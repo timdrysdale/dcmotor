@@ -30,7 +30,8 @@ float Driver::drive(float primary, float secondary) {
   }
   float val = 0;
   
-  if (ABS(secondary) <= ABS(threshold) == useSecondCurveBelowThreshold ) {
+  if (ABS(secondary) <
+	  ABS(threshold) == useSecondCurveBelowThreshold ) {
 	val = interpolate_table_1d(&curve1, primary);
   } else {
 	val = interpolate_table_1d(&curve0, primary);
